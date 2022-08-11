@@ -21,7 +21,7 @@ const ListEmployeeComponent = () => {
     return (
         <div className='container'>
             <h2 className='text-center'> List Employees </h2>
-            <table className='table table-bordered table-striped'>
+            <table className="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Employee Id</th>
@@ -35,10 +35,10 @@ const ListEmployeeComponent = () => {
                         employees.map(
                             employee => 
                                 <tr key = {employee.id}>
-                                    <td> {employee.id} </td>
-                                    <td> {employee.firstName} </td>
-                                    <td> {employee.lastName} </td>
-                                    <td> {employee.email} </td>
+                                    <td>{employee.id}</td>
+                                    <td>{employee.firstName}</td>
+                                    <td>{employee.lastName}</td>
+                                    <td>{employee.emailId}</td>
                                 </tr>
                         )
                     }
