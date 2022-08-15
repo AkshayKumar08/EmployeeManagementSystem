@@ -10,17 +10,26 @@ const AddEmployeeComponent = () => {
     const navigate = useNavigate();
     const {id} = useParams();
 
-	const saveEmployee = (e) => {
+	const saveOrUpdateEmployee = (e) => {
 		e.preventDefault();
 
 		const employee = {firstName, lastName, emailId}
 
-		EmployeeService.createEmployee(employee).then((response) => {
-            navigate('/employees');
-        }).catch(error => {
-            console.log(error);
-        })
+        if(id){
+            EmployeeService.updateEmployee(id, employee).then((response) => {
+                navigate('/employees')
+            }).catch(error => {
+                console.log(error)
+            })
 
+        }
+        else{
+    		EmployeeService.createEmployee(employee).then((response) => {
+                navigate('/employees');
+            }).catch(error => {
+                console.log(error);
+            })
+        }
 	}
 
     useEffect(() => {
@@ -35,7 +44,6 @@ const AddEmployeeComponent = () => {
 
     const title = () => {
          if(id){
-            console.log(id);
             return <h2 className="text-center"> Update Employee</h2>
          }else{
             return <h2 className="text-center"> Add Employee</h2>
@@ -90,7 +98,7 @@ const AddEmployeeComponent = () => {
                                     </input>
                                 </div>
 
-                                <button className = "btn btn-success"  onClick= {(e) => saveEmployee(e)}>Submit </button>
+                                <button className = "btn btn-success"  onClick= {(e) => saveOrUpdateEmployee(e)}>Submit </button>
                                 <Link to="/employees" className="btn btn-danger"> Cancel </Link>
                             </form>
 

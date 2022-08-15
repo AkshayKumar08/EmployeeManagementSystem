@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.HttpStatus;
 import net.akshay.empmanagementsystem.exception.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import net.akshay.empmanagementsystem.model.Employee;
@@ -46,5 +46,15 @@ public class EmployeeController {
         updateEmployee.setEmailId(employeeDetails.getEmailId());
         employeeRepository.save(updateEmployee);
         return ResponseEntity.ok(updateEmployee);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable long id){
+        Employee employee = employeeRepository.findById(id)
+                                .orElseThrow(() -> 
+            new ResourceNotFoundException("Employee does not exist with id: " + id));
+        employeeRepository.delete(employee);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
